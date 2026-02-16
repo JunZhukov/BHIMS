@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark-mode');</script>
+  <script>if(localStorage.getItem('bhims_logged_in')!=='true'||localStorage.getItem('bhims_role')!=='admin')location.href='../Customer/login.html';</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports - BHMIS Admin</title>
+  <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body class="admin-page">
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <a href="index.html" class="admin-logo">
+        <div class="admin-logo-icon"><svg viewBox="0 0 24 24" width="32" height="32"><path fill="white" d="M11 3h2v18h-2zM3 11h18v2H3z"/></svg></div>
+        <div class="admin-logo-text">BHMIS <span>Barangay Health Management Information System</span></div>
+      </a>
+      <div class="admin-header-actions">
+        <a href="#" class="admin-header-link"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> Activity Log</a>
+        <a href="#" class="admin-header-link" id="logoutLink"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg> Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="admin-nav">
+    <div class="admin-nav-inner">
+      <a href="index.html" class="admin-nav-link"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg> Dashboard</a>
+      <a href="appointments.html" class="admin-nav-link"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v16c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg> Appointments</a>
+      <a href="inventory.html" class="admin-nav-link"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V4c0-1.1-1-2-2-2zm-5 12H9v-2h6v2zm5-7H4V4h16v3z"/></svg> Inventory</a>
+      <a href="reports.html" class="admin-nav-link active"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg> Reports</a>
+      <a href="settings.html" class="admin-nav-link"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg> Settings</a>
+    </div>
+  </nav>
+
+  <main class="admin-main">
+    <div class="admin-container">
+      <div class="page-header-row">
+        <div>
+          <h1 class="page-title">Reports</h1>
+          <p class="page-subtitle">Generate and view system reports</p>
+        </div>
+      </div>
+
+      <div class="report-categories">
+        <div class="report-category-card">
+          <div class="report-category-icon">
+            <svg viewBox="0 0 24 24" width="36" height="36"><path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+          </div>
+          <h3>Patient Report</h3>
+          <p>Generate patient statistics</p>
+        </div>
+        <div class="report-category-card">
+          <div class="report-category-icon">
+            <svg viewBox="0 0 24 24" width="36" height="36"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v16c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm-2-1h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V9h2v2z"/></svg>
+          </div>
+          <h3>Appointment Report</h3>
+          <p>View appointment trends</p>
+        </div>
+        <div class="report-category-card">
+          <div class="report-category-icon">
+            <svg viewBox="0 0 24 24" width="36" height="36"><path fill="currentColor" d="M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V4c0-1.1-1-2-2-2zm-5 12H9v-2h6v2zm5-7H4V4h16v3z"/></svg>
+          </div>
+          <h3>Inventory Report</h3>
+          <p>Medicine stock analysis</p>
+        </div>
+      </div>
+
+      <section class="recent-reports">
+        <h2>Recent Reports</h2>
+        <div class="recent-reports-list">
+          <div class="recent-report-item">
+            <div class="recent-report-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+            </div>
+            <div class="recent-report-info">
+              <span class="recent-report-title">Monthly Patient Report</span>
+              <span class="recent-report-period">February 2026</span>
+            </div>
+            <button type="button" class="btn btn-primary btn-download"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> PDF</button>
+          </div>
+          <div class="recent-report-item">
+            <div class="recent-report-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+            </div>
+            <div class="recent-report-info">
+              <span class="recent-report-title">Medicine Inventory Summary</span>
+              <span class="recent-report-period">Q4 2025</span>
+            </div>
+            <button type="button" class="btn btn-primary btn-download"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Excel</button>
+          </div>
+          <div class="recent-report-item">
+            <div class="recent-report-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+            </div>
+            <div class="recent-report-info">
+              <span class="recent-report-title">Appointment Statistics</span>
+              <span class="recent-report-period">February 2026</span>
+            </div>
+            <button type="button" class="btn btn-primary btn-download"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> PDF</button>
+          </div>
+          <div class="recent-report-item">
+            <div class="recent-report-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+            </div>
+            <div class="recent-report-info">
+              <span class="recent-report-title">Patient Demographics</span>
+              <span class="recent-report-period">January 2026</span>
+            </div>
+            <button type="button" class="btn btn-primary btn-download"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Excel</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="admin-modal" id="logoutModal">
+    <div class="admin-modal-overlay" id="logoutOverlay"></div>
+    <div class="admin-modal-content admin-confirm-modal">
+      <h3>Logout</h3>
+      <p>Are you sure you want to logout?</p>
+      <div class="form-actions">
+        <button type="button" class="btn btn-outline" id="logoutCancel">Cancel</button>
+        <button type="button" class="btn btn-primary btn-danger" id="logoutConfirmBtn">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <a href="#" class="admin-help-btn" aria-label="Help"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="white" d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg></a>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    (function() {
+      const PATIENTS_KEY = 'bhims_admin_patients';
+      const APPOINTMENTS_KEY = 'bhims_admin_appointments';
+      const INVENTORY_KEY = 'bhims_admin_inventory';
+
+      function getPatients() {
+        try {
+          return JSON.parse(localStorage.getItem(PATIENTS_KEY) || '[]');
+        } catch (e) { return []; }
+      }
+      function getAppointments() {
+        try {
+          return JSON.parse(localStorage.getItem(APPOINTMENTS_KEY) || '[]');
+        } catch (e) { return []; }
+      }
+      function getInventory() {
+        try {
+          return JSON.parse(localStorage.getItem(INVENTORY_KEY) || '[]');
+        } catch (e) { return []; }
+      }
+
+      function downloadCSV(content, filename) {
+        const blob = new Blob(['\ufeff' + content], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+        URL.revokeObjectURL(link.href);
+      }
+
+      function downloadPDF(text, filename) {
+        try {
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF();
+          const lines = doc.splitTextToSize(text, 180);
+          doc.setFontSize(12);
+          doc.text('BHMIS - Barangay Health Management Information System', 14, 15);
+          doc.setFontSize(10);
+          doc.text(lines, 14, 25);
+          doc.save(filename);
+        } catch (e) {
+          const w = window.open('', '_blank');
+          w.document.write('<pre style="font-family:sans-serif;padding:20px">' + text.replace(/</g, '&lt;') + '</pre>');
+          w.document.title = filename;
+          w.print();
+          w.close();
+        }
+      }
+
+      function generatePatientReport(format) {
+        const patients = getPatients();
+        if (format === 'csv') {
+          const headers = 'Name,Age,Gender,Blood Type,Born,Phone,Email,Conditions,Allergies,Last Visit';
+          const rows = patients.map(p => [p.name, p.age, p.gender, p.blood || '', p.born || '', p.phone || '', p.email || '', (p.conditions || '').replace(/,/g, ';'), (p.allergies || '').replace(/,/g, ';'), p.lastVisit || ''].map(v => '"' + (v || '').replace(/"/g, '""') + '"').join(','));
+          downloadCSV([headers, ...rows].join('\n'), 'patient-report-feb-2026.csv');
+        } else {
+          let text = 'MONTHLY PATIENT REPORT - February 2026\n\nTotal Patients: ' + patients.length + '\n\n';
+          patients.forEach((p, i) => {
+            text += (i+1) + '. ' + p.name + ' | ' + p.age + ' yrs | ' + p.gender + ' | Blood: ' + (p.blood || 'N/A') + '\n   Phone: ' + (p.phone || '') + ' | Email: ' + (p.email || '') + '\n   Last Visit: ' + (p.lastVisit || 'N/A') + '\n\n';
+          });
+          downloadPDF(text, 'patient-report-feb-2026.pdf');
+        }
+      }
+
+      function generateAppointmentReport(format) {
+        const apps = getAppointments().sort((a,b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
+        if (format === 'csv') {
+          const headers = 'Patient,Date,Time,Type,Doctor,Status';
+          const rows = apps.map(a => [a.patient, a.date, a.time, a.type, a.doctor || '', a.status].map(v => '"' + (v || '').replace(/"/g, '""') + '"').join(','));
+          downloadCSV([headers, ...rows].join('\n'), 'appointment-statistics-feb-2026.csv');
+        } else {
+          let text = 'APPOINTMENT STATISTICS - February 2026\n\nTotal Appointments: ' + apps.length + '\n\n';
+          apps.forEach((a, i) => {
+            text += (i+1) + '. ' + a.patient + ' | ' + a.date + ' ' + a.time + ' | ' + a.type + ' | Dr: ' + (a.doctor || 'N/A') + ' | ' + a.status + '\n';
+          });
+          downloadPDF(text, 'appointment-statistics-feb-2026.pdf');
+        }
+      }
+
+      function generateInventoryReport(format) {
+        const inv = getInventory();
+        const getStatus = (item) => item.stock < item.minStock ? 'Critical' : item.stock < item.minStock * 1.5 ? 'Low Stock' : 'In Stock';
+        if (format === 'csv') {
+          const headers = 'Medicine Name,Category,Stock,Min Stock,Unit,Status';
+          const rows = inv.map(i => [i.name, i.category, i.stock, i.minStock, i.unit || 'tablets', getStatus(i)].map(v => '"' + (v || '').replace(/"/g, '""') + '"').join(','));
+          downloadCSV([headers, ...rows].join('\n'), 'inventory-summary-q4-2025.csv');
+        } else {
+          let text = 'MEDICINE INVENTORY SUMMARY - Q4 2025\n\nTotal Items: ' + inv.length + '\n\n';
+          inv.forEach((i, idx) => {
+            text += (idx+1) + '. ' + i.name + ' | ' + i.category + ' | Stock: ' + i.stock + ' ' + (i.unit || '') + ' | Min: ' + i.minStock + ' | ' + getStatus(i) + '\n';
+          });
+          downloadPDF(text, 'inventory-summary-q4-2025.pdf');
+        }
+      }
+
+      function generateDemographicsReport(format) {
+        const patients = getPatients();
+        if (format === 'csv') {
+          const headers = 'Name,Age,Gender,Blood Type';
+          const rows = patients.map(p => [p.name, p.age, p.gender, p.blood || ''].map(v => '"' + (v || '').replace(/"/g, '""') + '"').join(','));
+          downloadCSV([headers, ...rows].join('\n'), 'patient-demographics-jan-2026.csv');
+        } else {
+          let text = 'PATIENT DEMOGRAPHICS - January 2026\n\n';
+          patients.forEach((p, i) => { text += (i+1) + '. ' + p.name + ' - ' + p.age + ' yrs, ' + p.gender + ', ' + (p.blood || 'N/A') + '\n'; });
+          downloadPDF(text, 'patient-demographics-jan-2026.pdf');
+        }
+      }
+
+      document.querySelectorAll('.report-category-card').forEach((card, i) => {
+        card.addEventListener('click', () => {
+          if (i === 0) { generatePatientReport('pdf'); return; }
+          if (i === 1) { generateAppointmentReport('pdf'); return; }
+          if (i === 2) { generateInventoryReport('csv'); return; }
+        });
+      });
+
+      document.querySelectorAll('.recent-reports-list .recent-report-item').forEach((row, i) => {
+        const btn = row.querySelector('.btn-download');
+        const fmt = btn.textContent.trim().toLowerCase();
+        const format = fmt === 'excel' ? 'csv' : fmt;
+        btn.addEventListener('click', () => {
+          if (i === 0) generatePatientReport(format);
+          else if (i === 1) generateInventoryReport(format);
+          else if (i === 2) generateAppointmentReport(format);
+          else if (i === 3) generateDemographicsReport(format);
+        });
+      });
+
+      document.getElementById('logoutLink')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('logoutModal').classList.add('active');
+      });
+      document.getElementById('logoutOverlay')?.addEventListener('click', () => {
+        document.getElementById('logoutModal').classList.remove('active');
+      });
+      document.getElementById('logoutCancel')?.addEventListener('click', () => {
+        document.getElementById('logoutModal').classList.remove('active');
+      });
+      document.getElementById('logoutConfirmBtn')?.addEventListener('click', () => {
+        localStorage.removeItem('bhims_logged_in');
+        localStorage.removeItem('bhims_user');
+        localStorage.removeItem('bhims_role');
+        window.location.href = '../Customer/login.html';
+      });
+    })();
+  </script>
+</body>
+</html>

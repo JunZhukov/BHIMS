@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark-mode');</script>
+  <script>if(localStorage.getItem('bhims_logged_in')!=='true')location.href='login.html';</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Information - BHMIS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><svg viewBox="0 0 24 24" width="22" height="22"><path fill="#ED1B2E" d="M11 3h2v18h-2zM3 11h18v2H3z"/></svg></div>
+        <div class="logo-text"><strong>BHMIS</strong><span>Barangay Health Management</span></div>
+      </a>
+      <nav class="nav">
+        <a href="index.html" class="nav-link"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Home</a>
+        <a href="profile.html" class="nav-link"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> Patient Profile</a>
+        <a href="appointments.html" class="nav-link"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg> Appointments</a>
+        <a href="health-info.html" class="nav-link active"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Health Information</a>
+        <a href="medicine.html" class="nav-link"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg> Medicine Shop</a>
+      </nav>
+      <div class="header-actions">
+        <a href="settings.html" class="icon-btn" aria-label="Settings"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></a>
+        <a href="profile.html" class="user-btn" aria-label="Profile"><svg viewBox="0 0 24 24" width="22" height="22"><path fill="white" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="container">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Health Information</h1>
+          <p class="page-subtitle">Browse health topics and test your knowledge.</p>
+        </div>
+      </div>
+
+      <div class="knowledge-banner">
+        <svg viewBox="0 0 24 24"><path fill="white" d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+        <div>
+          <h3>Health Knowledge Base</h3>
+          <p>Explore comprehensive health information and educational resources.</p>
+        </div>
+      </div>
+
+      <div class="search-bar">
+        <input type="search" placeholder="Search health topics..." aria-label="Search health topics">
+      </div>
+
+      <div class="health-topics">
+        <div class="topic-card">
+          <div class="topic-icon heart"><svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+          <h3>Cardiovascular Health</h3>
+          <p>Understanding heart health and prevention of cardiovascular diseases.</p>
+          <button class="btn btn-outline btn-read-article">Read Article</button>
+        </div>
+        <div class="topic-card">
+          <div class="topic-icon apple"><svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M18 8h-2c0-2.76-2.24-5-5-5S6 5.24 6 8H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-7-5c1.66 0 3 1.34 3 3H8c0-1.66 1.34-3 3-3zm7 17H4V10h14v10z"/></svg></div>
+          <h3>Nutrition & Diet</h3>
+          <p>Essential information about balanced diet and nutritional requirements.</p>
+          <button class="btn btn-outline btn-read-article">Read Article</button>
+        </div>
+        <div class="topic-card">
+          <div class="topic-icon brain"><svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+          <h3>Mental Health</h3>
+          <p>Understanding mental wellness and emotional well-being.</p>
+          <button class="btn btn-outline btn-read-article">Read Article</button>
+        </div>
+        <div class="topic-card">
+          <div class="topic-icon diabetes"><svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M13 3c-4.97 0-9 4.03-9 9H1l4 4 4-4H6c0-3.86 3.14-7 7-7s7 3.14 7 7-3.14 7-7 7c-1.9 0-3.62-.76-4.94-2l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.25 2.52.77-1.28-3.52-2.09V8z"/></svg></div>
+          <h3>Diabetes Management</h3>
+          <p>Information about diabetes types, prevention, and management.</p>
+          <button class="btn btn-outline btn-read-article">Read Article</button>
+        </div>
+        <div class="topic-card">
+          <div class="topic-icon shield"><svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></div>
+          <h3>Preventive Healthcare</h3>
+          <p>Importance of preventive care and regular health screenings.</p>
+          <button class="btn btn-outline btn-read-article">Read Article</button>
+        </div>
+        <div class="topic-card">
+          <div class="topic-icon steth"><svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M19.8 10.3C19.4 8.6 17.8 7 16.1 6.6c-2.5-.5-4.7 1.2-5.2 3.7-.4 1.7.2 3.3 1.4 4.5l-1.4 1.4-1.4-1.4-1.4 1.4 1.4 1.4-4.2 4.2-1.4-1.4 1.4-1.4-1.4-1.4 1.4-1.4 1.4 1.4 1.4-1.4-1.4-1.4 2.8-2.8c1.2 1.2 2.8 1.8 4.5 1.4 2.5-.5 4.2-2.7 3.7-5.2z"/></svg></div>
+          <h3>Infectious Diseases</h3>
+          <p>Understanding prevention and treatment of infectious diseases.</p>
+          <button class="btn btn-outline btn-read-article">Read Article</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="article-modal" id="articleModal">
+    <div class="article-modal-overlay" id="articleOverlay"></div>
+    <div class="article-modal-content card">
+      <button class="article-modal-close" id="articleClose" aria-label="Close">&times;</button>
+      <h2 class="article-modal-title" id="articleTitle"></h2>
+      <div class="article-modal-body" id="articleBody"></div>
+    </div>
+  </div>
+
+  <script src="theme.js"></script>
+  <script>
+    (function() {
+      const articles = {
+        cardiovascular: {
+          title: 'Cardiovascular Health',
+          body: '<p>Your heart is a vital organ that pumps blood throughout your body. Taking care of it is essential for a long, healthy life.</p><h4>Key Practices</h4><ul><li><strong>Exercise regularly:</strong> Aim for at least 150 minutes of moderate aerobic activity per week.</li><li><strong>Eat heart-healthy foods:</strong> Include fruits, vegetables, whole grains, and lean proteins. Limit sodium, saturated fat, and added sugars.</li><li><strong>Manage stress:</strong> Practice relaxation techniques like deep breathing, meditation, or yoga.</li><li><strong>Don\'t smoke:</strong> Smoking significantly increases the risk of heart disease.</li><li><strong>Monitor blood pressure:</strong> Have it checked regularly and follow your doctor\'s advice.</li></ul><h4>Warning Signs</h4><p>Chest pain, shortness of breath, palpitations, or swelling in the legs warrant a visit to your healthcare provider.</p>'
+        },
+        nutrition: {
+          title: 'Nutrition & Diet',
+          body: '<p>A balanced diet provides the nutrients your body needs to function properly and stay healthy.</p><h4>Building a Balanced Plate</h4><ul><li><strong>Fruits and vegetables:</strong> Fill half your plate with a variety of colors.</li><li><strong>Whole grains:</strong> Choose brown rice, whole wheat bread, and oats over refined grains.</li><li><strong>Protein:</strong> Include fish, poultry, beans, legumes, and nuts.</li><li><strong>Healthy fats:</strong> Use olive oil, avocados, and nuts in moderation.</li><li><strong>Limit processed foods:</strong> Reduce intake of sugary drinks, snacks, and fast food.</li></ul><h4>Hydration</h4><p>Drink plenty of water throughout the day. The general recommendation is 8 glasses, but needs vary based on activity and climate.</p>'
+        },
+        mental: {
+          title: 'Mental Health',
+          body: '<p>Mental health affects how we think, feel, and act. It is just as important as physical health.</p><h4>Maintaining Mental Wellness</h4><ul><li><strong>Stay connected:</strong> Maintain relationships with family and friends.</li><li><strong>Get enough sleep:</strong> Aim for 7–8 hours of quality sleep each night.</li><li><strong>Stay active:</strong> Physical activity can reduce stress and improve mood.</li><li><strong>Practice mindfulness:</strong> Take time to relax and be present in the moment.</li><li><strong>Ask for help:</strong> It\'s okay to talk to a counselor or doctor if you\'re struggling.</li></ul><h4>When to Seek Help</h4><p>If you experience persistent sadness, anxiety, changes in sleep or appetite, or thoughts of self-harm, please reach out to a healthcare professional.</p>'
+        },
+        diabetes: {
+          title: 'Diabetes Management',
+          body: '<p>Diabetes is a chronic condition that affects how your body processes blood sugar. With proper management, many people live healthy lives.</p><h4>Types of Diabetes</h4><ul><li><strong>Type 1:</strong> The body does not produce insulin. Requires insulin therapy.</li><li><strong>Type 2:</strong> The body doesn\'t use insulin well. Often manageable with diet, exercise, and medication.</li><li><strong>Gestational:</strong> Occurs during pregnancy and usually resolves after birth.</li></ul><h4>Management Tips</h4><ul><li>Monitor blood sugar as advised by your doctor.</li><li>Follow a balanced meal plan with controlled carbohydrates.</li><li>Stay physically active.</li><li>Take medications as prescribed.</li><li>Attend regular check-ups and eye exams.</li></ul>'
+        },
+        preventive: {
+          title: 'Preventive Healthcare',
+          body: '<p>Preventive care helps detect and prevent health problems before they become serious.</p><h4>Why Prevention Matters</h4><p>Early detection of conditions like high blood pressure, diabetes, and certain cancers can lead to better outcomes and lower treatment costs.</p><h4>Recommended Screenings</h4><ul><li><strong>Blood pressure:</strong> At least every 2 years for adults.</li><li><strong>Blood sugar/cholesterol:</strong> Based on age and risk factors.</li><li><strong>Cancer screenings:</strong> Mammograms, Pap smears, and colonoscopy as recommended.</li><li><strong>Immunizations:</strong> Stay up to date with vaccines for flu, pneumonia, and others.</li></ul><h4>Regular Check-ups</h4><p>Schedule annual wellness visits with your healthcare provider to discuss your health and any concerns.</p>'
+        },
+        infectious: {
+          title: 'Infectious Diseases',
+          body: '<p>Infectious diseases are caused by pathogens such as bacteria, viruses, and parasites. Prevention is key.</p><h4>How Infections Spread</h4><p>Infections can spread through direct contact, airborne droplets, contaminated food or water, and vectors like mosquitoes.</p><h4>Prevention Practices</h4><ul><li><strong>Handwashing:</strong> Wash hands with soap and water for at least 20 seconds, especially before eating and after using the bathroom.</li><li><strong>Vaccination:</strong> Get recommended vaccines to protect yourself and others.</li><li><strong>Food safety:</strong> Cook food thoroughly, store it properly, and avoid cross-contamination.</li><li><strong>Respiratory hygiene:</strong> Cover coughs and sneezes, and wear a mask when recommended.</li></ul><h4>When to See a Doctor</h4><p>Seek care if you have a high fever, persistent symptoms, difficulty breathing, or if an illness worsens.</p>'
+        }
+      };
+
+      const modal = document.getElementById('articleModal');
+      const titleEl = document.getElementById('articleTitle');
+      const bodyEl = document.getElementById('articleBody');
+
+      function openArticle(id) {
+        const article = articles[id];
+        if (!article) return;
+        titleEl.textContent = article.title;
+        bodyEl.innerHTML = article.body;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeArticle() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      document.getElementById('articleOverlay')?.addEventListener('click', closeArticle);
+      document.getElementById('articleClose')?.addEventListener('click', closeArticle);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal?.classList.contains('active')) closeArticle();
+      });
+
+      document.querySelectorAll('.topic-card').forEach((card, i) => {
+        const ids = ['cardiovascular', 'nutrition', 'mental', 'diabetes', 'preventive', 'infectious'];
+        card.querySelector('.btn-read-article')?.addEventListener('click', () => openArticle(ids[i]));
+      });
+    })();
+  </script>
+</body>
+</html>

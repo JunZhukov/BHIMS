@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark-mode');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - BHMIS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-page">
+  <div class="login-container">
+    <div class="login-card card">
+      <div class="login-logo">
+        <div class="logo-icon-large"><svg viewBox="0 0 24 24" width="48" height="48"><path fill="#ED1B2E" d="M11 3h2v18h-2zM3 11h18v2H3z"/></svg></div>
+        <h1>BHMIS</h1>
+        <p>Barangay Health Management Information System</p>
+      </div>
+      <h2 class="login-title">Login</h2>
+      <form class="login-form" id="loginForm">
+        <div class="form-group">
+          <label for="email">Email or Username</label>
+          <input type="text" id="email" class="form-control" placeholder="Enter your email or username" required autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="Enter your password" required autocomplete="current-password">
+        </div>
+        <p class="login-hint">Admin: admin@admin.com | Customer: any email</p>
+        <button type="submit" class="btn btn-primary btn-block" id="loginBtn">Log In</button>
+      </form>
+    </div>
+  </div>
+  <script src="theme.js"></script>
+  <script>
+    const AUTH_KEY = 'bhims_logged_in';
+    const USER_KEY = 'bhims_user';
+    const ROLE_KEY = 'bhims_role';
+    const ADMIN_EMAIL = 'admin@admin.com';
+    const ADMIN_PASS_KEY = 'bhims_admin_password';
+
+    if (localStorage.getItem(AUTH_KEY) === 'true') {
+      const role = localStorage.getItem(ROLE_KEY);
+      window.location.href = role === 'admin' ? '../Admin/index.html' : 'index.html';
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim().toLowerCase();
+      const password = document.getElementById('password').value;
+
+      if (!email || !password) {
+        alert('Please enter both email and password.');
+        return;
+      }
+
+      if (email === ADMIN_EMAIL) {
+        const storedPass = localStorage.getItem(ADMIN_PASS_KEY) || 'admin123';
+        if (password !== storedPass) {
+          alert('Invalid password.');
+          return;
+        }
+        localStorage.setItem(AUTH_KEY, 'true');
+        localStorage.setItem(USER_KEY, email);
+        localStorage.setItem(ROLE_KEY, 'admin');
+        window.location.href = '../Admin/index.html';
+        return;
+      }
+
+      localStorage.setItem(AUTH_KEY, 'true');
+      localStorage.setItem(USER_KEY, email);
+      localStorage.setItem(ROLE_KEY, 'customer');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

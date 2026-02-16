@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark-mode');</script>
+  <script>if(localStorage.getItem('bhims_logged_in')!=='true'||localStorage.getItem('bhims_role')!=='admin')location.href='../Customer/login.html';</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - BHMIS</title>
+  <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body class="admin-page">
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <a href="index.html" class="admin-logo">
+        <div class="admin-logo-icon"><svg viewBox="0 0 24 24" width="32" height="32"><path fill="white" d="M11 3h2v18h-2zM3 11h18v2H3z"/></svg></div>
+        <div class="admin-logo-text">BHMIS <span>Barangay Health Management Information System</span></div>
+      </a>
+      <div class="admin-header-actions">
+        <a href="#" class="admin-header-link"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> Activity Log</a>
+        <a href="#" class="admin-header-link" id="logoutLink"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg> Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="admin-nav">
+    <div class="admin-nav-inner">
+      <a href="index.html" class="admin-nav-link active"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg> Dashboard</a>
+      <a href="appointments.html" class="admin-nav-link"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v16c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg> Appointments</a>
+      <a href="inventory.html" class="admin-nav-link"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V4c0-1.1-1-2-2-2zm-5 12H9v-2h6v2zm5-7H4V4h16v3z"/></svg> Inventory</a>
+      <a href="reports.html" class="admin-nav-link"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg> Reports</a>
+      <a href="settings.html" class="admin-nav-link"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg> Settings</a>
+    </div>
+  </nav>
+
+  <main class="admin-main">
+    <div class="admin-container">
+      <div class="admin-summary-cards">
+        <div class="summary-card summary-card-blue">
+          <div class="summary-card-icon"><svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+          <div class="summary-card-content">
+            <h3>Total Patients</h3>
+            <p class="summary-value" id="totalPatients">5</p>
+            <p class="summary-subtitle">Active in registry</p>
+          </div>
+        </div>
+        <div class="summary-card summary-card-red">
+          <div class="summary-card-icon"><svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></div>
+          <div class="summary-card-content">
+            <h3>High-Risk Patients</h3>
+            <p class="summary-value" id="highRiskPatients">3</p>
+            <p class="summary-subtitle">Multiple conditions</p>
+          </div>
+        </div>
+        <div class="summary-card summary-card-orange">
+          <div class="summary-card-icon"><svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v16c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm-2-1h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V9h2v2z"/></svg></div>
+          <div class="summary-card-content">
+            <h3>Needs Follow-up</h3>
+            <p class="summary-value" id="needsFollowup">0</p>
+            <p class="summary-subtitle">90+ days since visit</p>
+          </div>
+        </div>
+        <div class="summary-card summary-card-green">
+          <div class="summary-card-icon"><svg viewBox="0 0 24 24" width="28" height="28"><path fill="currentColor" d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg></div>
+          <div class="summary-card-content">
+            <h3>Critical Patients</h3>
+            <p class="summary-value" id="criticalPatients">3</p>
+            <p class="summary-subtitle">With medical conditions</p>
+          </div>
+        </div>
+      </div>
+
+      <section class="patient-registry">
+        <div class="registry-header">
+          <div class="registry-title">
+            <h2><svg viewBox="0 0 24 24" width="24" height="24"><path fill="#ED1B2E" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg> Patient Registry</h2>
+            <p id="registryCount">5 of 5 patients</p>
+          </div>
+          <div class="registry-actions">
+            <div class="view-toggle">
+              <button type="button" class="view-btn active" data-view="grid" aria-label="Grid view"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M3 3v8h8V3H3zm6 6H5V5h4v4zm-6 4v8h8v-8H3zm6 6H5v-4h4v4zm4-16v8h8V3h-8zm6 6h-4V5h4v4zm-6 4v8h8v-8h-8zm6 6h-4v-4h4v4z"/></svg></button>
+              <button type="button" class="view-btn" data-view="table" aria-label="Table view"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg></button>
+            </div>
+            <select class="registry-sort" id="registrySort">
+              <option>Sort by Name</option>
+              <option>Sort by Date</option>
+              <option>Sort by Blood Type</option>
+            </select>
+            <button type="button" class="btn btn-export"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg> Export Excel</button>
+            <button type="button" class="btn btn-primary btn-new-patient"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg> New Patient</button>
+          </div>
+        </div>
+
+        <div class="registry-search">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="#6D6E70" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="search" id="patientSearch" placeholder="Search by name, blood type, or phone number...">
+        </div>
+
+        <div class="advanced-filters">
+          <h4><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg> Advanced Filters</h4>
+          <div class="filter-row">
+            <select id="filterBlood">
+              <option>All Blood Types</option>
+              <option>A+</option>
+              <option>A-</option>
+              <option>B+</option>
+              <option>B-</option>
+              <option>O+</option>
+              <option>O-</option>
+              <option>AB+</option>
+              <option>AB-</option>
+            </select>
+            <select id="filterGender">
+              <option>All Genders</option>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+            <span class="filter-status">No Filters Applied</span>
+          </div>
+        </div>
+
+        <div class="patient-grid" id="patientGrid">
+          <div class="patient-card" data-name="emily grace chen" data-blood="B+" data-gender="Female">
+            <div class="patient-card-header">
+              <div class="patient-info">
+                <div class="patient-avatar"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="white" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                <div>
+                  <h3>Emily Grace Chen</h3>
+                  <p class="patient-meta">47 years old • Female</p>
+                </div>
+              </div>
+              <div class="patient-actions">
+                <button type="button" class="icon-btn-edit" aria-label="Edit"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#2563EB" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+                <button type="button" class="icon-btn-delete" aria-label="Delete"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#ED1B2E" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+              </div>
+            </div>
+            <div class="patient-chips">
+              <span class="chip chip-blood">B+</span>
+              <span class="chip chip-alert"><svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg> Alert</span>
+            </div>
+            <div class="patient-details">
+              <p><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v16c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg> Born: Nov 8, 1978</p>
+              <p><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> +1 (555) 345-6789</p>
+              <p><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> emily.chen@email.com</p>
+            </div>
+            <div class="patient-medical">
+              <div class="medical-box medical-conditions"><span>Medical Conditions</span><p>Hypertension, Asthma</p></div>
+              <div class="medical-box medical-allergies"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg><div class="medical-allergies-content"><span>Allergies</span><p>Aspirin</p></div></div>
+            </div>
+            <div class="patient-footer"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Last visit: Feb 5, 2026</div>
+          </div>
+
+          <div class="patient-card" data-name="james anthony martinez" data-blood="O-" data-gender="Male">
+            <div class="patient-card-header">
+              <div class="patient-info">
+                <div class="patient-avatar"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="white" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                <div>
+                  <h3>James Anthony Martinez</h3>
+                  <p class="patient-meta">33 years old • Male</p>
+                </div>
+              </div>
+              <div class="patient-actions">
+                <button type="button" class="icon-btn-edit" aria-label="Edit"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#2563EB" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+                <button type="button" class="icon-btn-delete" aria-label="Delete"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#ED1B2E" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+              </div>
+            </div>
+            <div class="patient-chips">
+              <span class="chip chip-blood">O-</span>
+              <span class="chip chip-alert"><svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg> Alert</span>
+            </div>
+            <div class="patient-details">
+              <p><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v16c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg> Born: Jul 22, 1992</p>
+              <p><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> +1 (555) 234-5678</p>
+              <p><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> james.martinez@email.com</p>
+            </div>
+            <div class="patient-medical">
+              <div class="medical-box medical-allergies"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg><div class="medical-allergies-content"><span>Allergies</span><p>Shellfish, Latex</p></div></div>
+            </div>
+            <div class="patient-footer"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Last visit: Jan 28, 2026</div>
+          </div>
+
+          <div class="patient-card" data-name="maria isabella garcia" data-blood="O+" data-gender="Female">
+            <div class="patient-card-header">
+              <div class="patient-info">
+                <div class="patient-avatar"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="white" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                <div>
+                  <h3>Maria Isabella Garcia</h3>
+                  <p class="patient-meta">37 years old • Female</p>
+                </div>
+              </div>
+              <div class="patient-actions">
+                <button type="button" class="icon-btn-edit" aria-label="Edit"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#2563EB" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+                <button type="button" class="icon-btn-delete" aria-label="Delete"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#ED1B2E" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+              </div>
+            </div>
+            <div class="patient-chips">
+              <span class="chip chip-blood">O+</span>
+              <span class="chip chip-alert"><svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg> Alert</span>
+            </div>
+            <div class="patient-details">
+              <p><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v16c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg> Born: Sep 30, 1988</p>
+              <p><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> +1 (555) 567-8901</p>
+              <p><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> maria.garcia@email.com</p>
+            </div>
+            <div class="patient-medical">
+              <div class="medical-box medical-conditions"><span>Medical Conditions</span><p>Migraine</p></div>
+              <div class="medical-box medical-allergies"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg><div class="medical-allergies-content"><span>Allergies</span><p>Sulfa drugs</p></div></div>
+            </div>
+            <div class="patient-footer"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Last visit: Jan 15, 2026</div>
+          </div>
+
+          <div class="patient-card" data-name="robert lee williams" data-blood="AB+" data-gender="Male">
+            <div class="patient-card-header">
+              <div class="patient-info">
+                <div class="patient-avatar"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="white" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                <div>
+                  <h3>Robert Lee Williams</h3>
+                  <p class="patient-meta">30 years old • Male</p>
+                </div>
+              </div>
+              <div class="patient-actions">
+                <button type="button" class="icon-btn-edit" aria-label="Edit"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#2563EB" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+                <button type="button" class="icon-btn-delete" aria-label="Delete"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#ED1B2E" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+              </div>
+            </div>
+            <div class="patient-chips">
+              <span class="chip chip-blood">AB+</span>
+            </div>
+            <div class="patient-details">
+              <p><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v16c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg> Born: May 12, 1995</p>
+              <p><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> +1 (555) 456-7890</p>
+              <p><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> robert.williams@email.com</p>
+            </div>
+            <div class="patient-medical"></div>
+            <div class="patient-footer"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Last visit: Feb 10, 2026</div>
+          </div>
+
+          <div class="patient-card" data-name="sarah marie johnson" data-blood="A+" data-gender="Female">
+            <div class="patient-card-header">
+              <div class="patient-info">
+                <div class="patient-avatar"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="white" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                <div>
+                  <h3>Sarah Marie Johnson</h3>
+                  <p class="patient-meta">40 years old • Female</p>
+                </div>
+              </div>
+              <div class="patient-actions">
+                <button type="button" class="icon-btn-edit" aria-label="Edit"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#2563EB" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+                <button type="button" class="icon-btn-delete" aria-label="Delete"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="#ED1B2E" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+              </div>
+            </div>
+            <div class="patient-chips">
+              <span class="chip chip-blood">A+</span>
+              <span class="chip chip-alert"><svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg> Alert</span>
+            </div>
+            <div class="patient-details">
+              <p><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v16c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg> Born: Mar 15, 1985</p>
+              <p><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> +1 (555) 123-4567</p>
+              <p><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> sarah.johnson@email.com</p>
+            </div>
+            <div class="patient-medical">
+              <div class="medical-box medical-conditions"><span>Medical Conditions</span><p>Type 2 Diabetes</p></div>
+              <div class="medical-box medical-allergies"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg><div class="medical-allergies-content"><span>Allergies</span><p>Penicillin</p></div></div>
+            </div>
+            <div class="patient-footer"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Last visit: Jan 15, 2026</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="admin-modal" id="editPatientModal">
+    <div class="admin-modal-overlay" id="editOverlay"></div>
+    <div class="admin-modal-content">
+      <button class="admin-modal-close" id="editClose">&times;</button>
+      <h3>Edit Patient</h3>
+      <form id="editPatientForm">
+        <div class="form-group">
+          <label for="editName">Full Name</label>
+          <input type="text" id="editName" class="form-control" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="editAge">Age</label>
+            <input type="number" id="editAge" class="form-control" min="1" max="120" required>
+          </div>
+          <div class="form-group">
+            <label for="editGender">Gender</label>
+            <select id="editGender" class="form-control" required>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="editBlood">Blood Type</label>
+          <select id="editBlood" class="form-control" required>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="editBorn">Born Date</label>
+          <input type="text" id="editBorn" class="form-control" placeholder="e.g. Nov 8, 1978" required>
+        </div>
+        <div class="form-group">
+          <label for="editPhone">Phone</label>
+          <input type="tel" id="editPhone" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="editEmail">Email</label>
+          <input type="email" id="editEmail" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="editConditions">Medical Conditions</label>
+          <input type="text" id="editConditions" class="form-control" placeholder="e.g. Hypertension, Asthma">
+        </div>
+        <div class="form-group">
+          <label for="editAllergies">Allergies</label>
+          <input type="text" id="editAllergies" class="form-control" placeholder="e.g. Aspirin">
+        </div>
+        <div class="form-group">
+          <label for="editLastVisit">Last Visit</label>
+          <input type="text" id="editLastVisit" class="form-control" placeholder="e.g. Feb 5, 2026" required>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-outline" id="editCancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="admin-modal" id="logoutModal">
+    <div class="admin-modal-overlay" id="logoutOverlay"></div>
+    <div class="admin-modal-content admin-confirm-modal">
+      <h3>Logout</h3>
+      <p id="logoutConfirmMessage">Are you sure you want to logout?</p>
+      <div class="form-actions">
+        <button type="button" class="btn btn-outline" id="logoutCancel">Cancel</button>
+        <button type="button" class="btn btn-primary btn-danger" id="logoutConfirmBtn">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-modal" id="deleteConfirmModal">
+    <div class="admin-modal-overlay" id="deleteOverlay"></div>
+    <div class="admin-modal-content admin-confirm-modal">
+      <h3>Delete Patient</h3>
+      <p id="deleteConfirmMessage">Are you sure you want to delete this patient? This action cannot be undone.</p>
+      <div class="form-actions">
+        <button type="button" class="btn btn-outline" id="deleteCancel">Cancel</button>
+        <button type="button" class="btn btn-primary btn-danger" id="deleteConfirmBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <a href="#" class="admin-help-btn" aria-label="Help"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="white" d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg></a>
+
+  <script>
+    (function() {
+      const searchInput = document.getElementById('patientSearch');
+      const patientGrid = document.getElementById('patientGrid');
+      const filterBlood = document.getElementById('filterBlood');
+      const filterGender = document.getElementById('filterGender');
+      const registryCount = document.getElementById('registryCount');
+
+      const PATIENTS_KEY = 'bhims_admin_patients';
+
+      function getCards() {
+        return document.querySelectorAll('.patient-card');
+      }
+
+      function syncPatientsToStorage() {
+        const cards = getCards();
+        const patients = [];
+        cards.forEach(card => {
+          const name = card.querySelector('h3')?.textContent?.trim() || '';
+          const meta = parsePatientMeta(card.querySelector('.patient-meta')?.textContent);
+          const details = card.querySelectorAll('.patient-details p');
+          const born = details[0]?.textContent?.replace(/^Born:\s*/i, '').trim() || '';
+          const phone = details[1]?.textContent?.trim() || '';
+          const email = details[2]?.textContent?.trim() || '';
+          const conditionsBox = card.querySelector('.medical-conditions');
+          const conditions = conditionsBox?.querySelector('p')?.textContent?.trim() || '';
+          const allergiesBox = card.querySelector('.medical-allergies');
+          const allergies = allergiesBox?.querySelector('.medical-allergies-content p, .medical-allergies p')?.textContent?.trim() || '';
+          const lastVisit = card.querySelector('.patient-footer')?.textContent?.replace(/^Last visit:\s*/i, '').trim() || '';
+          patients.push({
+            name, age: meta.age, gender: meta.gender, blood: card.dataset.blood || '',
+            born, phone, email, conditions, allergies, lastVisit
+          });
+        });
+        try { localStorage.setItem(PATIENTS_KEY, JSON.stringify(patients)); } catch (e) {}
+      }
+
+      function parsePatientMeta(meta) {
+        const m = (meta || '').match(/(\d+)\s*years?\s*old\s*.+?(Male|Female)/i);
+        return m ? { age: m[1], gender: m[2] } : { age: '', gender: 'Male' };
+      }
+
+      function filterPatients() {
+        const cards = getCards();
+        const query = (searchInput?.value || '').toLowerCase().trim();
+        const blood = filterBlood?.value;
+        const gender = filterGender?.value;
+        let visible = 0;
+        cards.forEach(card => {
+          const name = (card.dataset.name || '').toLowerCase();
+          const cardBlood = card.dataset.blood || '';
+          const cardGender = card.dataset.gender || '';
+          const text = card.textContent.toLowerCase();
+          const matchSearch = !query || name.includes(query) || text.includes(query);
+          const matchBlood = !blood || blood === 'All Blood Types' || cardBlood === blood;
+          const matchGender = !gender || gender === 'All Genders' || cardGender === gender;
+          const show = matchSearch && matchBlood && matchGender;
+          card.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+        if (registryCount) registryCount.textContent = `${visible} of ${cards.length} patients`;
+      }
+
+      searchInput?.addEventListener('input', filterPatients);
+      filterBlood?.addEventListener('change', filterPatients);
+      filterGender?.addEventListener('change', filterPatients);
+
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          patientGrid?.classList.toggle('patient-table', btn.dataset.view === 'table');
+        });
+      });
+
+      const deleteModal = document.getElementById('deleteConfirmModal');
+      const deleteMessage = document.getElementById('deleteConfirmMessage');
+      const deleteConfirmBtn = document.getElementById('deleteConfirmBtn');
+      const deleteCancelBtn = document.getElementById('deleteCancel');
+      let cardToDelete = null;
+
+      function openDeleteModal(card) {
+        cardToDelete = card;
+        const name = card.querySelector('h3')?.textContent || 'this patient';
+        deleteMessage.textContent = `Are you sure you want to delete ${name}? This action cannot be undone.`;
+        deleteModal.classList.add('active');
+      }
+
+      function closeDeleteModal() {
+        deleteModal.classList.remove('active');
+        cardToDelete = null;
+      }
+
+      deleteConfirmBtn.addEventListener('click', () => {
+        if (cardToDelete) {
+          cardToDelete.remove();
+          filterPatients();
+          syncPatientsToStorage();
+          closeDeleteModal();
+        }
+      });
+
+      deleteCancelBtn.addEventListener('click', closeDeleteModal);
+      document.getElementById('deleteOverlay')?.addEventListener('click', closeDeleteModal);
+
+      patientGrid?.addEventListener('click', (e) => {
+        const deleteBtn = e.target.closest('.icon-btn-delete');
+        if (deleteBtn) {
+          e.preventDefault();
+          const card = deleteBtn.closest('.patient-card');
+          if (card) openDeleteModal(card);
+          return;
+        }
+        const editBtn = e.target.closest('.icon-btn-edit');
+        if (editBtn) {
+          e.preventDefault();
+          const card = editBtn.closest('.patient-card');
+          if (card) openEditModal(card);
+        }
+      });
+
+      const editModal = document.getElementById('editPatientModal');
+      const editForm = document.getElementById('editPatientForm');
+      let cardToEdit = null;
+
+      function parsePatientMeta(meta) {
+        const m = (meta || '').match(/(\d+)\s*years?\s*old\s*.+?(Male|Female)/i);
+        return m ? { age: m[1], gender: m[2] } : { age: '', gender: 'Male' };
+      }
+
+      function openEditModal(card) {
+        cardToEdit = card;
+        const name = card.querySelector('h3')?.textContent?.trim() || '';
+        const meta = parsePatientMeta(card.querySelector('.patient-meta')?.textContent);
+        const blood = card.querySelector('.chip-blood')?.textContent?.trim() || '';
+        const details = card.querySelectorAll('.patient-details p');
+        const born = details[0]?.textContent?.replace(/^Born:\s*/i, '').trim() || '';
+        const phone = details[1]?.textContent?.trim() || '';
+        const email = details[2]?.textContent?.trim() || '';
+        const conditionsBox = card.querySelector('.medical-conditions');
+        const conditions = conditionsBox?.querySelector('p')?.textContent?.trim() || '';
+        const allergiesBox = card.querySelector('.medical-allergies');
+        const allergies = allergiesBox?.querySelector('.medical-allergies-content p, .medical-allergies p')?.textContent?.trim() || '';
+        const lastVisit = card.querySelector('.patient-footer')?.textContent?.replace(/^Last visit:\s*/i, '').trim() || '';
+
+        document.getElementById('editName').value = name;
+        document.getElementById('editAge').value = meta.age;
+        document.getElementById('editGender').value = meta.gender;
+        document.getElementById('editBlood').value = blood;
+        document.getElementById('editBorn').value = born;
+        document.getElementById('editPhone').value = phone;
+        document.getElementById('editEmail').value = email;
+        document.getElementById('editConditions').value = conditions;
+        document.getElementById('editAllergies').value = allergies;
+        document.getElementById('editLastVisit').value = lastVisit;
+
+        editModal.classList.add('active');
+      }
+
+      function closeEditModal() {
+        editModal.classList.remove('active');
+        cardToEdit = null;
+      }
+
+      document.getElementById('editOverlay')?.addEventListener('click', closeEditModal);
+      document.getElementById('editClose')?.addEventListener('click', closeEditModal);
+      document.getElementById('editCancel')?.addEventListener('click', closeEditModal);
+
+      editForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!cardToEdit) return;
+
+        const name = document.getElementById('editName').value.trim();
+        const age = document.getElementById('editAge').value;
+        const gender = document.getElementById('editGender').value;
+        const blood = document.getElementById('editBlood').value;
+        const born = document.getElementById('editBorn').value.trim();
+        const phone = document.getElementById('editPhone').value.trim();
+        const email = document.getElementById('editEmail').value.trim();
+        const conditions = document.getElementById('editConditions').value.trim();
+        const allergies = document.getElementById('editAllergies').value.trim();
+        const lastVisit = document.getElementById('editLastVisit').value.trim();
+
+        cardToEdit.dataset.name = name.toLowerCase();
+        cardToEdit.dataset.blood = blood;
+        cardToEdit.dataset.gender = gender;
+
+        cardToEdit.querySelector('h3').textContent = name;
+        cardToEdit.querySelector('.patient-meta').textContent = `${age} years old • ${gender}`;
+
+        const chips = cardToEdit.querySelector('.patient-chips');
+        let bloodChip = chips.querySelector('.chip-blood');
+        if (!bloodChip) {
+          bloodChip = document.createElement('span');
+          bloodChip.className = 'chip chip-blood';
+          chips.insertBefore(bloodChip, chips.firstChild);
+        }
+        bloodChip.textContent = blood;
+
+        const details = cardToEdit.querySelectorAll('.patient-details p');
+        if (details[0]) details[0].innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v16c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg> Born: ${born}`;
+        if (details[1]) details[1].innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> ${phone}`;
+        if (details[2]) details[2].innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> ${email}`;
+
+        const medical = cardToEdit.querySelector('.patient-medical');
+        medical.innerHTML = '';
+        if (conditions) {
+          const condDiv = document.createElement('div');
+          condDiv.className = 'medical-box medical-conditions';
+          condDiv.innerHTML = '<span>Medical Conditions</span><p>' + conditions + '</p>';
+          medical.appendChild(condDiv);
+        }
+        if (allergies) {
+          const allergDiv = document.createElement('div');
+          allergDiv.className = 'medical-box medical-allergies';
+          allergDiv.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg><div class="medical-allergies-content"><span>Allergies</span><p>' + allergies + '</p></div>';
+          medical.appendChild(allergDiv);
+        }
+
+        const footer = cardToEdit.querySelector('.patient-footer');
+        if (footer) footer.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Last visit: ' + lastVisit;
+
+        filterPatients();
+        syncPatientsToStorage();
+        closeEditModal();
+      });
+
+      // Logout modal
+      document.getElementById('logoutLink')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('logoutModal').classList.add('active');
+      });
+      document.getElementById('logoutOverlay')?.addEventListener('click', () => {
+        document.getElementById('logoutModal').classList.remove('active');
+      });
+      document.getElementById('logoutCancel')?.addEventListener('click', () => {
+        document.getElementById('logoutModal').classList.remove('active');
+      });
+      document.getElementById('logoutConfirmBtn')?.addEventListener('click', () => {
+        localStorage.removeItem('bhims_logged_in');
+        localStorage.removeItem('bhims_user');
+        localStorage.removeItem('bhims_role');
+        window.location.href = '../Customer/login.html';
+      });
+
+      syncPatientsToStorage();
+    })();
+  </script>
+</body>
+</html>
