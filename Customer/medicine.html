@@ -214,17 +214,112 @@
     </div>
   </div>
 
+  <div class="checkout-modal" id="checkoutModal">
+    <div class="checkout-modal-overlay" id="checkoutModalOverlay"></div>
+    <div class="checkout-modal-inner">
+      <div class="checkout-modal-header">
+        <button type="button" class="checkout-back" id="checkoutBack" aria-label="Back">&larr;</button>
+        <h2>Checkout</h2>
+      </div>
+      <div class="checkout-modal-body">
+        <div class="checkout-card">
+          <div class="checkout-card-title">
+            <span class="checkout-icon checkout-icon-loc"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>
+            Pickup location
+          </div>
+          <div class="checkout-pickup-info">
+            <strong>Barangay Hall Health Center</strong>
+            <p>Pick up your medications at the counter. Show your QR code after placing the order.</p>
+          </div>
+        </div>
+
+        <div class="checkout-card">
+          <div class="checkout-card-title">Order summary</div>
+          <div id="checkoutOrderSummary" class="checkout-order-summary"></div>
+          <div class="checkout-subtotal-row">
+            <span>Subtotal</span>
+            <span id="checkoutSubtotal">$0.00</span>
+          </div>
+        </div>
+
+        <div class="checkout-card">
+          <div class="checkout-card-title">Payment method</div>
+          <div class="checkout-payment-options">
+            <label class="checkout-payment-option">
+              <input type="radio" name="paymentMethod" value="cod" checked>
+              <span class="payment-option-content">
+                <span class="payment-icon"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg></span>
+                <span><strong>Cash on pickup</strong><small>Pay when you claim your medications</small></span>
+              </span>
+            </label>
+            <label class="checkout-payment-option">
+              <input type="radio" name="paymentMethod" value="gcash">
+              <span class="payment-option-content">
+                <span class="payment-icon payment-icon-gcash">GCash</span>
+                <span><strong>GCash</strong><small>Pay via GCash wallet</small></span>
+              </span>
+            </label>
+            <label class="checkout-payment-option">
+              <input type="radio" name="paymentMethod" value="card">
+              <span class="payment-option-content">
+                <span class="payment-icon"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg></span>
+                <span><strong>Debit / Credit card</strong><small>Visa, Mastercard</small></span>
+              </span>
+            </label>
+            <label class="checkout-payment-option">
+              <input type="radio" name="paymentMethod" value="bank">
+              <span class="payment-option-content">
+                <span class="payment-icon"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></span>
+                <span><strong>Bank transfer</strong><small>Pay via bank deposit</small></span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="checkout-card checkout-payment-details">
+          <div class="checkout-card-title">Payment details</div>
+          <div class="checkout-detail-rows">
+            <div class="checkout-detail-row">
+              <span>Merchandise subtotal</span>
+              <span id="checkoutDetailSubtotal">$0.00</span>
+            </div>
+            <div class="checkout-detail-row checkout-detail-total">
+              <strong>Total payment</strong>
+              <strong id="checkoutDetailTotal">$0.00</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="checkout-modal-footer">
+        <div class="checkout-footer-total">
+          <span>Total <span id="checkoutFooterTotal">$0.00</span></span>
+        </div>
+        <button type="button" class="btn btn-primary btn-place-order" id="placeOrderBtn">Place order</button>
+      </div>
+    </div>
+  </div>
+
   <div class="checkout-success-modal" id="checkoutSuccessModal">
     <div class="checkout-success-overlay" id="checkoutSuccessOverlay"></div>
     <div class="checkout-success-content">
       <div class="checkout-success-icon">
         <svg viewBox="0 0 24 24" width="64" height="64"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
       </div>
-      <h3>Successful</h3>
-      <p>Your order has been placed.</p>
+      <h3>Order placed</h3>
+      <p class="checkout-success-msg">Your medication order has been received.</p>
+      <p class="checkout-qr-instruction">Show this QR code to the counter at the <strong>Barangay Hall Health Center</strong> to claim your medications.</p>
+      <div class="checkout-qr-wrap">
+        <div id="checkoutQrCode" class="checkout-qr-code"></div>
+      </div>
+      <p class="checkout-order-ref" id="checkoutOrderRef"></p>
+      <div class="checkout-success-actions">
+        <button type="button" class="btn btn-primary" id="downloadQrBtn"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Download QR code</button>
+        <button type="button" class="btn btn-outline" id="closeCheckoutSuccessBtn">Close</button>
+      </div>
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="theme.js"></script>
   <script>
     (function() {
@@ -376,6 +471,7 @@
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal?.classList.contains('active')) closeModal();
+        if (e.key === 'Escape' && checkoutModal?.classList.contains('active')) closeCheckoutModal();
       });
 
       modal.querySelector('.modal-overlay')?.addEventListener('click', closeModal);
@@ -408,31 +504,96 @@
       });
 
       const successModal = document.getElementById('checkoutSuccessModal');
-      function showCheckoutSuccess() {
-        successModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        setTimeout(() => {
-          successModal.classList.remove('active');
-          document.body.style.overflow = '';
-        }, 2000);
-      }
-      document.getElementById('checkoutSuccessOverlay')?.addEventListener('click', () => {
+      const qrContainer = document.getElementById('checkoutQrCode');
+      const orderRefEl = document.getElementById('checkoutOrderRef');
+
+      function closeCheckoutSuccess() {
         successModal.classList.remove('active');
         document.body.style.overflow = '';
-      });
+      }
 
-      document.getElementById('checkoutBtn')?.addEventListener('click', () => {
+      function showCheckoutSuccess(order) {
+        if (!order) return;
+        const orderRef = order.id || 'BHMIS-' + Date.now();
+        const itemsLine = order.items.map(i => i.name + ' x' + i.qty).join(', ');
+        const payload = 'BHMIS Medication Pickup\nOrder: ' + orderRef + '\nTotal: $' + order.total.toFixed(2) + '\n' + itemsLine + '\nShow to counter at Barangay Hall Health Center';
+        orderRefEl.textContent = 'Order ref: ' + orderRef;
+
+        qrContainer.innerHTML = '';
+        if (window.QRCode) {
+          try {
+            new QRCode(qrContainer, { text: payload, width: 200, height: 200 });
+          } catch (e) {
+            new QRCode(qrContainer, payload);
+          }
+        }
+        if (!qrContainer.querySelector('canvas') && !qrContainer.querySelector('img')) {
+          try { new QRCode(qrContainer, payload); } catch (e2) {}
+        }
+        if (!qrContainer.querySelector('canvas') && !qrContainer.querySelector('img')) {
+          qrContainer.innerHTML = '<p style="color:var(--grey);">QR unavailable. Order ref: ' + orderRef + '</p>';
+        }
+
+        successModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        document.getElementById('downloadQrBtn').onclick = () => {
+          const canvas = qrContainer.querySelector('canvas');
+          const img = qrContainer.querySelector('img');
+          const url = canvas ? canvas.toDataURL('image/png') : (img ? img.src : null);
+          if (url) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'bhmis-pickup-' + orderRef + '.png';
+            a.click();
+          }
+        };
+      }
+
+      document.getElementById('checkoutSuccessOverlay')?.addEventListener('click', closeCheckoutSuccess);
+      document.getElementById('closeCheckoutSuccessBtn')?.addEventListener('click', closeCheckoutSuccess);
+
+      const checkoutModal = document.getElementById('checkoutModal');
+      function openCheckoutModal() {
         if (cart.length === 0) return;
         const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-        orders.push({
+        document.getElementById('checkoutOrderSummary').innerHTML = cart.map(item => {
+          const st = (item.price * item.qty).toFixed(2);
+          return '<div class="checkout-order-item"><span>' + item.name + ' × ' + item.qty + '</span><span>$' + st + '</span></div>';
+        }).join('');
+        document.getElementById('checkoutSubtotal').textContent = '$' + total.toFixed(2);
+        document.getElementById('checkoutDetailSubtotal').textContent = '$' + total.toFixed(2);
+        document.getElementById('checkoutDetailTotal').textContent = '$' + total.toFixed(2);
+        document.getElementById('checkoutFooterTotal').textContent = '$' + total.toFixed(2);
+        checkoutModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeCheckoutModal() {
+        checkoutModal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+      document.getElementById('checkoutBtn')?.addEventListener('click', openCheckoutModal);
+      document.getElementById('checkoutModalOverlay')?.addEventListener('click', closeCheckoutModal);
+      document.getElementById('checkoutBack')?.addEventListener('click', closeCheckoutModal);
+
+      document.getElementById('placeOrderBtn')?.addEventListener('click', () => {
+        if (cart.length === 0) return;
+        const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || 'cod';
+        const orderId = 'BHMIS-' + Date.now();
+        const order = {
+          id: orderId,
           date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
           items: [...cart],
-          total
-        });
+          total,
+          paymentMethod
+        };
+        orders.push(order);
         cart = [];
         saveCart();
         saveOrders();
-        showCheckoutSuccess();
+        closeCheckoutModal();
+        showCheckoutSuccess(order);
         document.querySelector('.tab[data-medicine-tab="browse"]')?.click();
       });
 

@@ -105,28 +105,42 @@
       <form id="appointmentForm">
         <input type="hidden" id="appointmentId">
         <div class="form-group">
-          <label for="appPatient">Patient Name</label>
+          <label for="appPatient">Patient Name <span class="required">*</span></label>
           <input type="text" id="appPatient" class="form-control" required placeholder="e.g. Sarah Marie Johnson">
+        </div>
+        <div class="form-group">
+          <label for="appContact">Patient Contact</label>
+          <input type="text" id="appContact" class="form-control" placeholder="e.g. +63 912 345 6789">
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label for="appDate">Date</label>
+            <label for="appDate">Date <span class="required">*</span></label>
             <input type="date" id="appDate" class="form-control" required>
           </div>
           <div class="form-group">
-            <label for="appTime">Time</label>
+            <label for="appTime">Time <span class="required">*</span></label>
             <input type="time" id="appTime" class="form-control" required>
           </div>
         </div>
         <div class="form-group">
-          <label for="appType">Type</label>
+          <label for="appType">Appointment Type <span class="required">*</span></label>
           <select id="appType" class="form-control" required>
             <option value="">Select type</option>
             <option value="Check-up">Check-up</option>
             <option value="Follow-up">Follow-up</option>
             <option value="Consultation">Consultation</option>
             <option value="Vaccination">Vaccination</option>
+            <option value="Immunization">Immunization</option>
+            <option value="Lab / Diagnostics">Lab / Diagnostics</option>
+            <option value="Dental">Dental</option>
+            <option value="Prenatal">Prenatal</option>
+            <option value="Emergency">Emergency</option>
+            <option value="Other">Other</option>
           </select>
+        </div>
+        <div class="form-group">
+          <label for="appPurpose">Purpose / Reason for visit</label>
+          <textarea id="appPurpose" class="form-control" rows="3" placeholder="e.g. Routine blood pressure check, medication refill, discuss lab results..."></textarea>
         </div>
         <div class="form-group">
           <label for="appDoctor">Assigned Doctor</label>
@@ -254,39 +268,70 @@
         });
       }
 
-      const modal = document.getElementById('appointmentModal');
-      const form = document.getElementById('appointmentForm');
+      var modal = document.getElementById('appointmentModal');
+      var form = document.getElementById('appointmentForm');
 
       function openModal(app) {
-        document.getElementById('appointmentModalTitle').textContent = app ? 'Edit Appointment' : 'New Appointment';
-        document.getElementById('appointmentId').value = app ? app.id : '';
-        document.getElementById('appPatient').value = app ? app.patient : '';
-        document.getElementById('appDate').value = app ? app.date : '';
-        document.getElementById('appTime').value = app ? app.time : '';
-        document.getElementById('appType').value = app ? app.type : '';
-        document.getElementById('appDoctor').value = app ? (app.doctor || '') : '';
-        document.getElementById('appStatus').value = app ? app.status : 'Scheduled';
-        modal.classList.add('active');
+        var titleEl = document.getElementById('appointmentModalTitle');
+        var idEl = document.getElementById('appointmentId');
+        var patientEl = document.getElementById('appPatient');
+        var contactEl = document.getElementById('appContact');
+        var dateEl = document.getElementById('appDate');
+        var timeEl = document.getElementById('appTime');
+        var typeEl = document.getElementById('appType');
+        var purposeEl = document.getElementById('appPurpose');
+        var doctorEl = document.getElementById('appDoctor');
+        var statusEl = document.getElementById('appStatus');
+        if (titleEl) titleEl.textContent = app ? 'Edit Appointment' : 'New Appointment';
+        if (idEl) idEl.value = app ? app.id : '';
+        if (patientEl) patientEl.value = app ? app.patient : '';
+        if (contactEl) contactEl.value = app ? (app.contact || '') : '';
+        if (dateEl) dateEl.value = app ? app.date : '';
+        if (timeEl) timeEl.value = app ? app.time : '';
+        if (typeEl) typeEl.value = app ? app.type : '';
+        if (purposeEl) purposeEl.value = app ? (app.purpose || '') : '';
+        if (doctorEl) doctorEl.value = app ? (app.doctor || '') : '';
+        if (statusEl) statusEl.value = app ? app.status : 'Scheduled';
+        if (modal) modal.classList.add('active');
       }
 
       function closeModal() {
-        modal.classList.remove('active');
+        if (modal) modal.classList.remove('active');
       }
 
-      document.getElementById('newAppointmentBtn').addEventListener('click', () => openModal(null));
-      document.getElementById('appointmentOverlay').addEventListener('click', closeModal);
-      document.getElementById('appointmentClose').addEventListener('click', closeModal);
-      document.getElementById('appointmentCancel').addEventListener('click', closeModal);
+      function initAppointmentModal() {
+        var newAppointmentBtn = document.getElementById('newAppointmentBtn');
+        if (newAppointmentBtn) {
+          newAppointmentBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal(null);
+          });
+        }
+        var overlay = document.getElementById('appointmentOverlay');
+        if (overlay) overlay.addEventListener('click', closeModal);
+        var closeBtn = document.getElementById('appointmentClose');
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        var cancelBtn = document.getElementById('appointmentCancel');
+        if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+      }
 
-      form.addEventListener('submit', (e) => {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAppointmentModal);
+      } else {
+        initAppointmentModal();
+      }
+
+      if (form) form.addEventListener('submit', function(e) {
         e.preventDefault();
         const id = document.getElementById('appointmentId').value;
         const app = {
           id: id || Date.now().toString(),
           patient: document.getElementById('appPatient').value.trim(),
+          contact: document.getElementById('appContact').value.trim() || null,
           date: document.getElementById('appDate').value,
           time: document.getElementById('appTime').value,
           type: document.getElementById('appType').value,
+          purpose: document.getElementById('appPurpose').value.trim() || null,
           doctor: document.getElementById('appDoctor').value || null,
           status: document.getElementById('appStatus').value
         };

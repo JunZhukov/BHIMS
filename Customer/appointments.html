@@ -36,7 +36,7 @@
           <h1 class="page-title">Appointments</h1>
           <p class="page-subtitle">Schedule and manage your doctor appointments.</p>
         </div>
-        <button class="btn btn-primary"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg> New Appointment</button>
+        <button type="button" class="btn btn-primary" id="newAppointmentBtn"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg> New Appointment</button>
       </div>
 
       <div class="tabs appointments-tabs">
@@ -131,6 +131,60 @@
       </div>
     </div>
   </main>
+
+  <div class="appointment-modal" id="appointmentModal">
+    <div class="appointment-modal-overlay" id="appointmentOverlay"></div>
+    <div class="appointment-modal-content">
+      <button type="button" class="appointment-modal-close" id="appointmentClose" aria-label="Close">&times;</button>
+      <h3 class="appointment-modal-title">New Appointment</h3>
+      <form id="appointmentForm">
+        <div class="form-group">
+          <label for="custAppType">Appointment Type <span class="required">*</span></label>
+          <select id="custAppType" class="form-control" required>
+            <option value="">Select type</option>
+            <option value="Check-up">Check-up</option>
+            <option value="Follow-up">Follow-up</option>
+            <option value="Consultation">Consultation</option>
+            <option value="Vaccination">Vaccination</option>
+            <option value="Lab / Diagnostics">Lab / Diagnostics</option>
+            <option value="Dental">Dental</option>
+            <option value="Prenatal">Prenatal</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="custAppDate">Date <span class="required">*</span></label>
+            <input type="date" id="custAppDate" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="custAppTime">Time <span class="required">*</span></label>
+            <input type="time" id="custAppTime" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="custAppPurpose">Reason for visit</label>
+          <textarea id="custAppPurpose" class="form-control" rows="3" placeholder="e.g. Routine checkup, medication refill..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="custAppDoctor">Preferred doctor (optional)</label>
+          <select id="custAppDoctor" class="form-control">
+            <option value="">Any available</option>
+            <option value="Dr. Maria Santos">Dr. Maria Santos</option>
+            <option value="Dr. Juan Cruz">Dr. Juan Cruz</option>
+            <option value="Dr. Ana Reyes">Dr. Ana Reyes</option>
+            <option value="Dr. Carlos Dela Cruz">Dr. Carlos Dela Cruz</option>
+            <option value="Dr. Elena Bautista">Dr. Elena Bautista</option>
+          </select>
+        </div>
+        <div class="appointment-modal-actions">
+          <button type="button" class="btn btn-outline" id="appointmentCancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Request Appointment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script src="theme.js"></script>
   <script>
     document.querySelectorAll('.appointments-tabs .tab[data-appointment-tab]').forEach(tab => {
@@ -142,6 +196,68 @@
         document.getElementById(targetId)?.classList.add('active');
       });
     });
+
+    (function() {
+      var modal = document.getElementById('appointmentModal');
+      var form = document.getElementById('appointmentForm');
+
+      function openModal() {
+        var typeEl = document.getElementById('custAppType');
+        var dateEl = document.getElementById('custAppDate');
+        var timeEl = document.getElementById('custAppTime');
+        var purposeEl = document.getElementById('custAppPurpose');
+        var doctorEl = document.getElementById('custAppDoctor');
+        if (typeEl) typeEl.value = '';
+        if (dateEl) {
+          dateEl.value = '';
+          var today = new Date();
+          dateEl.setAttribute('min', today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0'));
+        }
+        if (timeEl) timeEl.value = '';
+        if (purposeEl) purposeEl.value = '';
+        if (doctorEl) doctorEl.value = '';
+        if (modal) modal.classList.add('active');
+      }
+
+      function closeModal() {
+        if (modal) modal.classList.remove('active');
+      }
+
+      function initAppointmentModal() {
+        var newBtn = document.getElementById('newAppointmentBtn');
+        if (newBtn) {
+          newBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal();
+          });
+        }
+        var overlay = document.getElementById('appointmentOverlay');
+        if (overlay) overlay.addEventListener('click', closeModal);
+        var closeBtn = document.getElementById('appointmentClose');
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        var cancelBtn = document.getElementById('appointmentCancel');
+        if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAppointmentModal);
+      } else {
+        initAppointmentModal();
+      }
+
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var typeEl = document.getElementById('custAppType');
+          var dateEl = document.getElementById('custAppDate');
+          var timeEl = document.getElementById('custAppTime');
+          if (typeEl && dateEl && timeEl && typeEl.value && dateEl.value && timeEl.value) {
+            closeModal();
+            alert('Appointment request submitted! The health center will confirm your appointment.');
+          }
+        });
+      }
+    })();
   </script>
 </body>
 </html>

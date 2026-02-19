@@ -800,6 +800,11 @@ body.admin-page {
   border-radius: 8px;
   font-size: 0.95rem;
 }
+.admin-modal .form-group label .required { color: var(--red); }
+.admin-modal textarea.form-control {
+  min-height: 80px;
+  resize: vertical;
+}
 
 .admin-modal .form-row {
   display: grid;
